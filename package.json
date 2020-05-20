@@ -1,0 +1,30 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon -r dotenv/config index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Buildweek-Sleep-Tracker-3/back-end.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Buildweek-Sleep-Tracker-3/back-end/issues"
+  },
+  "homepage": "https://github.com/Buildweek-Sleep-Tracker-3/back-end#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.21.1",
+    "nodemon": "^2.0.4",
+    "sqlite3": "^4.2.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
