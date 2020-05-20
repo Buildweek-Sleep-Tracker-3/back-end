@@ -1,8 +1,47 @@
-
-exports.up = function(knex) {
+exports.up = async function(knex) {
+  await knex.schema.createTable('users', (table) => {
+    table.increments('id')
+    table.string('email')
+      .unique()
+      .notNull()
+    table.string('password')
+      .notNull()
+    table.string('name')
+      .notNull()
+    table.integer('year_of_birth')
+      .notNull()
+    table.integer('age')
+      .notNull()
+  })
+  await knex.schema.createTable('sleep_entries', (table) => {
+    table.increments('id')
+    table.date('date')
+      .notNull()
+    table.timestamp('sleep_start')
+      .notNull()
+    table.timestamp('sleep_end')
+      .notNull()
+    table.integer('sleep_minutes')
+      .notNull()
+    table.integer('sleep_score_morning')
+      .notNull()
+    table.integer('sleep_score_night')
+      .notNull()
+    table.integer('sleep_score_day')
+      .notNull()
+    table.integer('sleep_score_average')
+      .notNull()
+    table.integer('user_id')
+      .notNull()
+      .references('id')
+      .inTable('users')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
+  })
   
 };
 
-exports.down = function(knex) {
-  
+exports.down = async function(knex) {
+  await knex.schema.dropTableIfExists('sleep_entries')
+  await knex.schema.dropTableIfExists('users')
 };
