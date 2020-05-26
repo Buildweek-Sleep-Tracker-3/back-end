@@ -19,8 +19,11 @@
   },
   "homepage": "https://github.com/Buildweek-Sleep-Tracker-3/back-end#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.22.0",
     "knex": "^0.21.1",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.4",
     "sqlite3": "^4.2.0"
   },
