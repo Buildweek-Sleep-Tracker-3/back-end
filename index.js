@@ -11,10 +11,15 @@ const port = process.env.PORT || 5000
 const apiRouter = require('./api/api-router')
 const authRouter = require('./auth/auth-router')
 
+const logger = (req, res, next) => {
+  console.log(req.header('CF-Connecting-IP'))
+  next()
+}
 
 server.use(helmet())
 server.use(cors())
 server.use(express.json())
+server.use(logger)
 server.use(morgan('combined'))
 server.use(cookieParser())
 
