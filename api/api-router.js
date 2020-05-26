@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const dao = require('./api-dao')
 
+//TODO: req.decoded contains user ID; make sure you are grabbing only that USERS stuff when you do these routes
+
 //GET all entries
 router.get('/entries', async (req, res, next) => {
   const entries = await dao.getSleepEntries()

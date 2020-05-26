@@ -2,6 +2,8 @@ const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
 const morgan = require('morgan')
+const cookieParser = require('cookie-parser')
+const authenticator = require('./middleware/authenticator')
 
 const server = express()
 const port = process.env.PORT || 5000
@@ -9,13 +11,15 @@ const port = process.env.PORT || 5000
 const apiRouter = require('./api/api-router')
 const authRouter = require('./auth/auth-router')
 
+
 server.use(helmet())
 server.use(cors())
 server.use(express.json())
 server.use(morgan('combined'))
+server.use(cookieParser())
 
 server.use('/auth', authRouter)
-server.use('/api', apiRouter)
+server.use('/api', authenticator, apiRouter)
 
 //Default response
 server.use((req, res) => {
