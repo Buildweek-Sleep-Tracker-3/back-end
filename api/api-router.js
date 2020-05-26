@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const dao = require('./dao')
+const dao = require('./api-dao')
 
 //GET all entries
 router.get('/entries', async (req, res, next) => {
