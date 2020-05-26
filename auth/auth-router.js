@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const dao = require('./auth-dao')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 router.post('/register', async (req, res, next) => {
   try {
@@ -13,7 +15,7 @@ router.post('/register', async (req, res, next) => {
     }
 
     //verify email is unique
-    const emailExists = await dao.getUserByEmail(req.body.email)
+    const emailExists = await dao.getUserByEmail(email)
     if(emailExists) {
       return res.status(400).json({
         message: 'Email address provided already exists.'
@@ -29,8 +31,41 @@ router.post('/register', async (req, res, next) => {
   }
 })
 
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
+  try {
+    //verify email & password were sent
+    const { email, password } = req.body
+    if (!email || !password) {
+      return res.status(400).json({
+        message: 'Must include a username and password'
+      })
+    }
+    //verify user exists
+    const user = await dao.getUserByEmail(email)
+    if(!user) {
+      return res.status(400).json({
+        message: 'Invalid username or password'
+      })
+    }
+    //check password is valid
+    const validPassword = await bcrypt.compare(password, user.password)
+    if(!validPassword) {
+      return res.status(400).json({
+        message: 'Invalid username or password'
+      })
+    }
 
+    const token = await jwt.sign({ id: user.id }, process.env.JWT_SECRET)
+
+    res.cookie('token', token)
+
+    res.status(200).json({
+      message: `Welcome, ${email}`
+    })
+
+  } catch (err) {
+    next(err)
+  }
 })
 
 module.exports = router
