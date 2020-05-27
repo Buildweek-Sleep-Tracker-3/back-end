@@ -12,7 +12,7 @@ const apiRouter = require('./api/api-router')
 const authRouter = require('./auth/auth-router')
 
 const logger = (req, res, next) => {
-  console.log(req.header('CF-Connecting-IP'))
+  console.log("IP:", req.header('CF-Connecting-IP'))
   next()
 }
 

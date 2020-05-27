@@ -21,7 +21,7 @@ services:
       - traefik
     labels:
       - traefik.enable=true
-      - traefik.http.routers.public-site.rule=Host(`bw-sleep.stvsu.com`)
+      - traefik.http.routers.public-site.rule=Host(`bw.stvsu.com`)
       - traefik.http.routers.public-site.entrypoints=websecure
       - traefik.http.routers.public-site.tls=true
 
