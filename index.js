@@ -1,8 +1,6 @@
 const express = require('express')
 const helmet = require('helmet')
 const cors = require('cors')
-const morgan = require('morgan')
-const cookieParser = require('cookie-parser')
 const authenticator = require('./middleware/authenticator')
 
 const server = express()
@@ -12,7 +10,7 @@ const apiRouter = require('./api/api-router')
 const authRouter = require('./auth/auth-router')
 
 const logger = (req, res, next) => {
-  console.log("IP:", req.header('CF-Connecting-IP'))
+  console.log("COUNTRY:", req.header('CF-IP-Country'), "Real IP:", req.header('CF-Connecting-IP'), "IP:", req.ip, "METHOD:", req.method, "PATH:", req.url)
   next()
 }
 
@@ -20,8 +18,6 @@ server.use(helmet())
 server.use(cors())
 server.use(express.json())
 server.use(logger)
-server.use(morgan('combined'))
-server.use(cookieParser())
 
 server.use('/auth', authRouter)
 server.use('/api', authenticator, apiRouter)
