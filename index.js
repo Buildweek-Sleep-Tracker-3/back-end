@@ -10,7 +10,7 @@ const apiRouter = require('./api/api-router')
 const authRouter = require('./auth/auth-router')
 
 const logger = (req, res, next) => {
-  console.log("COUNTRY:", req.header('CF-IP-Country'), "Real IP:", req.header('CF-Connecting-IP'), "IP:", req.ip, "METHOD:", req.method, "PATH:", req.url)
+  console.log("COUNTRY:", req.header('CF-IPCountry'), "Real IP:", req.header('CF-Connecting-IP'), "IP:", req.ip, "METHOD:", req.method, "PATH:", req.url)
   next()
 }
 
