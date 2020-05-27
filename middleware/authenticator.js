@@ -3,10 +3,11 @@ const jwt = require('jsonwebtoken')
 async function authenticator(req, res, next) {
   try {
     //split token string 'Bearer: longtokenstring' into just the string
-    const token = req.headers.authorization.split(" ")[1] || undefined
-    if(!token) {
-      res.status(400).json({
-        message: 'Make sure to include authentication'
+    try {
+      const token = req.headers.authorization.split(" ")[1]
+    } catch (err) {
+      return res.status(400).json({
+        message: 'Make sure to include proper authentication'
       })
     }
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
