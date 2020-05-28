@@ -78,7 +78,7 @@ router.put('/entries/:id', async (req, res, next) => {
       if(allowedValues.indexOf(key) > -1) {
         payload = {
           ...payload,
-          [key]: currentEntry[key]
+          [key]: req.body[key]
         }
       }
     }
