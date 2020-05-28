@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  bw-sleep-app:
+    image: "node:10"
+    user: "node"
+    working_dir: "/home/node/app"
+    environment:
+      - NODE_ENV=production
+      - PORT=8081
+      - DB_ENVIRONMENT=development
+      - JWT_SECRET=supersecretpassword
+    volumes:
+      - ./:/home/node/app
+    expose:
+      - 8081
+    command: "npm start"
+    container_name: bw-sleep-app
+    restart: always
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.public-site.rule=Host(`bw.stvsu.com`)
+      - traefik.http.routers.public-site.entrypoints=websecure
+      - traefik.http.routers.public-site.tls=true
+
+networks:
+  traefik:
+    external: true
