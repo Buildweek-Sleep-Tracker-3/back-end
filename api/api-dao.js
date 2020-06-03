@@ -5,6 +5,13 @@ function getSleepEntries(user_id) {
     .where({ user_id })
 }
 
+function getSleepEntriesWeek(user_id) {
+  return db('sleep_entries')
+    .where({ user_id })
+    .orderBy('date')
+    .limit('7')
+}
+
 function getSleepEntryById(user_id, id) {
   return db('sleep_entries')
     .where({ user_id, id })
@@ -33,5 +40,6 @@ module.exports = {
   getSleepEntryById,
   newSleepEntry,
   deleteEntry,
-  updateEntry
+  updateEntry,
+  getSleepEntriesWeek
 }

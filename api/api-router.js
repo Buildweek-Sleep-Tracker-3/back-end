@@ -13,6 +13,17 @@ router.get('/entries', async (req, res, next) => {
   }
 })
 
+//GET hours of sleep
+router.get('/entries/summary', async (req, res, next) => {
+  try {
+    const { user_id } = req.token
+    const allEntries = await dao.getSleepEntriesWeek(user_id)
+    console.log(allEntries)
+  } catch (err) {
+    next(err)
+  }
+})
+
 //GET specific entry
 router.get('/entries/:id', async (req, res, next) => {
   try {
@@ -116,6 +127,7 @@ router.delete('/entries/:id', async (req, res, next) => {
     next(err)
   }
 })
+
 
 //GET sleep summary
 //TODO: build logic for full sleep analysis
